@@ -4,7 +4,7 @@
 ##Please read the README FILE.
 
 from subprocess import call
-from subprocess import check_output
+from subprocess import check_output as co
 import subprocess
 import re
 import csv
@@ -12,10 +12,10 @@ import csv
 def create_addresses():
 	y=1
 	while y<=100: #change the number if you want to generate more or less addresses
-		out = check_output(['./clamd','getnewaddress',''])#./bitcoin-cli for Bitcoin
+		out = co(['./clamd','getnewaddress',''])#./bitcoin-cli for Bitcoin
 		print (out)
 		y+=1
-	outt = check_output(['./clamd','getaddressesbyaccount',''])#./bitcoin-cli for Bitcoin
+	outt = co(['./clamd','getaddressesbyaccount',''])#./bitcoin-cli for Bitcoin
 	addr=re.findall('"(.+?)"',str(outt))
 	L=[]
 	with open('addresses.db') as csvfile:
@@ -49,7 +49,7 @@ def create_addresses():
 			x+=1
 	return len(new)
 def check_addresses():
-	out = check_output(['./clamd','getaddressesbyaccount',''])#./bitcoin-cli for Bitcoin
+	out = co(['./clamd','getaddressesbyaccount',''])#./bitcoin-cli for Bitcoin
 	addr=re.findall('"(.+?)"',str(out))
 	return len(addr)
 
